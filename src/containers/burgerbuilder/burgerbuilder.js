@@ -27,6 +27,7 @@ class BurgerBuilder extends Component {
   };
 
   componentDidMount() {
+    console.log(this.props);
     axios.get("https://burgerbuilder-67798.firebaseio.com/ingredients.json").then(
         response => {
           this.setState({ingredients: response.data});
@@ -101,31 +102,44 @@ class BurgerBuilder extends Component {
   };
   
   purchaseContinueHandler = () => {
-    //alert("Done");
+  //   //alert("Done");
+  //
+  //   this.setState({
+  //     loading : true
+  //   });
+  //
+  //   const orderObj = {
+  //     ingredients: this.state.ingredients,
+  //     price : this.state.totalPrice,
+  //     custom : {
+  //       name : "Yello",
+  //       address : {
+  //         stret : "Green",
+  //         city : "colors"
+  //       }
+  //     }
+  //   };
+  //
+  //   axios.post('/orders.json',orderObj)
+  //       .then( response => {
+  //         this.setState({loading : false ,purchasing : false});
+  //       })
+  //       .catch( error => {
+  //         this.setState({loading : false ,purchasing : false});
+  //       });    //orders is my name for the node
+  //     this.props.history.push('/checkout'); //with this only the url gets changed so it will activate the route and rerender
 
-    this.setState({
-      loading : true
-    });
-
-    const orderObj = {
-      ingredients: this.state.ingredients,
-      price : this.state.totalPrice,
-      custom : {
-        name : "Yello",
-        address : {
-          stret : "Green",
-          city : "colors"
-        }
+      const queryParams = [];
+      for (let i in this.state.ingredients){
+        queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
       }
-    };
+      const queryString = queryParams.join("&");
 
-    axios.post('/orders.json',orderObj)
-        .then( response => {
-          this.setState({loading : false ,purchasing : false});
-        })
-        .catch( error => {
-          this.setState({loading : false ,purchasing : false});
-        });    //orders is my name for the node
+      this.props.history.push({
+        pathname : "/checkout",
+        search : "?" + queryString
+      });
+
   };
 
   render() {
