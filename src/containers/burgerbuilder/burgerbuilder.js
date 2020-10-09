@@ -103,36 +103,13 @@ class BurgerBuilder extends Component {
   
   purchaseContinueHandler = () => {
   //   //alert("Done");
-  //
-  //   this.setState({
-  //     loading : true
-  //   });
-  //
-  //   const orderObj = {
-  //     ingredients: this.state.ingredients,
-  //     price : this.state.totalPrice,
-  //     custom : {
-  //       name : "Yello",
-  //       address : {
-  //         stret : "Green",
-  //         city : "colors"
-  //       }
-  //     }
-  //   };
-  //
-  //   axios.post('/orders.json',orderObj)
-  //       .then( response => {
-  //         this.setState({loading : false ,purchasing : false});
-  //       })
-  //       .catch( error => {
-  //         this.setState({loading : false ,purchasing : false});
-  //       });    //orders is my name for the node
   //     this.props.history.push('/checkout'); //with this only the url gets changed so it will activate the route and rerender
 
       const queryParams = [];
       for (let i in this.state.ingredients){
         queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
       }
+      queryParams.push("price=" + this.state.totalPrice);  //to use in the contact data component passing
       const queryString = queryParams.join("&");
 
       this.props.history.push({
