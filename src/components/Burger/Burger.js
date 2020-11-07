@@ -4,7 +4,7 @@ import Ingredient from './ingre/Ingredient';
 
 const Burger = props => {
 
-    console.log(props);
+    // console.log(props);
 
     let tranformedIngredients = Object.keys(props.ingredients)
          .map(igKey => {
